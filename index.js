@@ -27,13 +27,25 @@ const generateRandomHistogramData = () => {
 //Generate Histo Data From User Input
 const handleSubmit = () => {
     const inputStr = document.getElementById('textInput').value;
+    let isValidString = true;
     if (!inputStr) {
-        alert('please input a valid str')
-        return
+        alert('please input a valid string')
+        isValidString = false
     }
     dataHisto = inputStr.split(',')
-    clearSvgHisto();
-    createSvgHisto(dataHisto);
+    dataHisto.every(value => {
+        if (isNaN(value)) {
+            alert('please input a valid string of comma separated integers') 
+            isValidString = false
+            return false
+        }
+        return true
+    })
+    if (isValidString) {
+        clearSvgHisto();
+        createSvgHisto(dataHisto);
+    }
+
 }
 document.getElementById('submit').addEventListener('click', handleSubmit);
 
